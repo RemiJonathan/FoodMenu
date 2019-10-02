@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FoodMenu</string>
+    <string name="ui_menu_about">Menu</string>
+    <string name="ui_menu_help">Help Menu</string>
+    <string name="ui_menu_settings">Menu Settings</string>
+    <string name="ui_tabname_breakfast">Breakfast</string>
+    <string name="ui_tabname_lunch">Lunch</string>
+    <string name="ui_tabname_snack">Snack</string>
+    <string name="ui_tabname_supper">Supper</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
