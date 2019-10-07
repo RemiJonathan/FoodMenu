@@ -2,6 +2,7 @@ package com.remijonathan.foodmenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
@@ -15,7 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private TabLayout tableLayout;
+    private TabLayout tabLayout;
     private ViewPager pager;
     private LinearLayout fragmentLayout;
 
@@ -26,20 +27,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.menu_toolbar);
-        tableLayout =  findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         fragmentLayout = findViewById(R.id.LinearLayoutContainer);
 
         setSupportActionBar(toolbar);
-        tableLayout.setupWithViewPager(pager);
+        tabLayout.setupWithViewPager(pager);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_launcher_foreground);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        tableLayout.addTab(tableLayout.newTab().setText(R.string.ui_tabname_breakfast));
-        tableLayout.addTab(tableLayout.newTab().setText(R.string.ui_tabname_lunch));
-        tableLayout.addTab(tableLayout.newTab().setText(R.string.ui_tabname_snack));
-        tableLayout.addTab(tableLayout.newTab().setText(R.string.ui_tabname_supper));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.ui_tabname_breakfast));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.ui_tabname_lunch));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.ui_tabname_snack));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.ui_tabname_supper));
+
+        Bundle bundle = new Bundle();
+        bundle.putString("message","Hello world");
+        bundle.putInt("count", 1);
+
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.LinearLayoutContainer, new Breakfast());
+        fragmentTransaction.commit();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                switch (tab.getPosition()) {
+                    case 0:
+                        fragmentTransaction.replace(R.id.LinearLayoutContainer, new Breakfast());
+                        break;
+                    case 1:
+                        fragmentTransaction.replace(R.id.LinearLayoutContainer, new LunchFragment());
+                        break;
+                    case 2:
+                        fragmentTransaction.replace(R.id.LinearLayoutContainer, new SnackFragment());
+                        break;
+                    case 3:
+                        fragmentTransaction.replace(R.id.LinearLayoutContainer, new SupperFragment());
+                        break;
+                }
+                fragmentTransaction.commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -52,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuitem_about:
                 //Do something
+
                 return true;
             case R.id.menuitem_help:
                 //Do something else
@@ -68,4 +114,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
